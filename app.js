@@ -2,11 +2,12 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const blogRoutes = require('./routes/blogRoutes');
-
+require('dotenv/config');
 //express app
 const app = express();
 
-const dbURI = 'mongodb+srv://fab-blogger:Iamabloggerxoxo@cluster0.8q6uk.mongodb.net/fab-blogger?retryWrites=true&w=majority'
+const dbURI = `mongodb+srv://${process.env.DB_NAME}:${process.env.DB_PASSWORD}@cluster0.8q6uk.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
+
 mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
   .then((result) => app.listen(3000))
   .catch((err) => console.log(err))

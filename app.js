@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const blogRoutes = require('./routes/blogRoutes');
 require('dotenv/config')
+
 //express app
 const app = express();
 
@@ -20,12 +21,10 @@ app.use(express.urlencoded({extended: true}))
 app.use(morgan('dev'));
 
 app.get('/', (req, res) => {
-  //res.send('<p> home page </p>')
   res.redirect('/blogs')
 })
 
 app.get('/about', (req, res) => {
-  //res.send('<p> about page </p>')
   res.render('about' , {title: 'About'})
 })
 

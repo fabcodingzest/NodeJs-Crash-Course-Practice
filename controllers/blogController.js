@@ -24,6 +24,27 @@ const blog_create_get = (req, res) => {
   res.render('blogs/create', {title: 'Create'})
 } 
 
+const blog_edit_get = (req, res) => {
+  const id = req.params.id
+  Blog.findById(id).then((blog) => {
+    res.render('blogs/editBlog', {title: 'Edit', blog})
+  }).catch(err => console.log(err))
+} 
+
+const blog_edit_post = async (req, res) => {
+  const id = req.params.id
+  Blog.findByIdAndUpdate(
+    { _id: id },
+    req.body,
+    err => {
+      if (err) return res.send(500, err);
+      res.redirect("/blogs");
+      }
+  ).then(result =>
+    redirect('/blogs')
+  ).catch(err => console.log(err))
+}
+
 const blog_create_post = (req, res) => {
   const blog = new Blog(req.body)
   blog.save()
@@ -50,5 +71,7 @@ module.exports = {
   blog_details,
   blog_create_get,
   blog_create_post,
+  blog_edit_get,
+  blog_edit_post,
   blog_delete
 }
